@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LCA · 年份进度</title>
+<link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=Space+Grotesk:wght@500;700&family=Noto+Sans+SC:wght@400;500;700&display=swap">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:100%;height:100%}
+body{
+  background:
+    radial-gradient(90% 60% at 50% 30%, rgba(255,255,255,.05) 0%, rgba(255,255,255,0) 60%),
+    #520E0F;
+  color:#F8F0EE;
+  font-family:'Space Grotesk','Noto Sans SC',system-ui,-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;
+  display:flex;align-items:center;justify-content:center;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{text-align:center;width:min(760px,88vw)}
+h1{
+  font-size:clamp(40px,9vw,92px);
+  font-weight:700;
+  letter-spacing:-.02em;
+  margin-bottom:clamp(28px,6vh,56px);
+}
+h1 span{color:#D08C8B}
+.links{display:flex;flex-direction:column;gap:18px;align-items:center}
+a{
+  display:block;
+  width:min(420px,100%);
+  padding:20px 28px;
+  border:1px solid rgba(208,140,139,.45);
+  border-radius:14px;
+  color:#D08C8B;
+  text-decoration:none;
+  font-size:clamp(16px,3.4vw,20px);
+  font-weight:500;
+  letter-spacing:.05em;
+  transition:background .3s ease;
+}
+a:hover{background:rgba(208,140,139,.14)}
+a small{
+  display:block;
+  margin-top:6px;
+  font-size:12px;
+  color:rgba(208,140,139,.6);
+  letter-spacing:.02em;
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>LCA <span>年份进度</span></h1>
+  <div class="links">
+    <a href="year-progress/">
+      2026 / 2027 年度进度
+      <small>今年走到了哪 · 还剩多少天</small>
+    </a>
+    <a href="year-calendar/">
+      2026 / 2027 年度日历
+      <small>月份进度渐变 · 跨年自动轮转</small>
+    </a>
+  </div>
+</div>
+</body>
+</html>
