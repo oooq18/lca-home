@@ -4,7 +4,7 @@
 
 ## 访问
 
-- `http://lca.l.cd/year-calendar/`
+- `http://lca.l.cd/` — 直接打开即为年历页面
 
 ## 域名
 
