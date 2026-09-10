@@ -22,7 +22,8 @@
   --wine:#520E0F;
   --pink:#D08C8B;
   --white:#FFFFFF;
-  --ysize:clamp(46px,10.5vw,150px);
+  --ysize:clamp(52px,13vw,180px);
+  --ygap:clamp(48px,7vw,96px);
 }
 html,body{width:100%;height:100%;overflow:hidden}
 body{
@@ -34,10 +35,10 @@ body{
   -webkit-font-smoothing:antialiased;
 }
 
-.wrap{width:min(800px,92vw);text-align:center}
+.wrap{width:min(900px,94vw);text-align:center}
 
 /* ===== 年份区：两端对齐，三槽轮转 ===== */
-.years{position:relative;width:100%;height:var(--ysize)}
+.years{position:relative;width:auto;height:var(--ysize);margin:0 auto}
 .y-slot{
   position:absolute;top:0;left:0;
   font-size:var(--ysize);
@@ -59,9 +60,9 @@ body.boot .y-slot{transition:none}
 .months{
   display:flex;
   justify-content:space-between;
-  width:100%;
-  margin-top:clamp(40px,9vh,84px);
-  font-size:clamp(16px,3.2vw,28px);
+  width:auto;
+  margin:clamp(40px,9vh,84px) auto 0;
+  font-size:clamp(18px,3.6vw,32px);
   font-weight:500;
 }
 .months span{
@@ -100,8 +101,20 @@ const s2 = { el: document.getElementById('e2'), pos: 'RIGHT' };
 const s3 = { el: document.getElementById('e3'), pos: 'OUT_R' };
 const slots = [s1, s2, s3];
 
+function getGap(){
+  /* clamp(48px, 7vw, 96px)：按视口宽度计算 */
+  return Math.max(48, Math.min(96, window.innerWidth * 0.07));
+}
 function measureOffsetR(){
-  return yearsEl.offsetWidth - s2.el.offsetWidth;
+  return s1.el.offsetWidth + getGap();
+}
+/* 同步年份组与月份行宽度（按内容），并定位年份槽 */
+function syncLayout(){
+  const offR = measureOffsetR();
+  const yw = offR + s2.el.offsetWidth;
+  yearsEl.style.width = yw + 'px';
+  monthsEl.style.width = yw + 'px';
+  for (const s of slots) applyPos(s, offR);
 }
 function transformOf(pos, offR){
   if (pos === 'LEFT')  return 'translateX(0)';
@@ -186,8 +199,7 @@ function rotate(){
 s1.el.textContent = y;
 s2.el.textContent = y + 1;
 s3.el.textContent = y + 2;
-const offInit = measureOffsetR();
-for (const s of slots) applyPos(s, offInit);
+syncLayout();
 requestAnimationFrame(() => requestAnimationFrame(() => {
   document.body.classList.remove('boot');
 }));
@@ -195,10 +207,9 @@ refreshAll();
 
 /* 屏幕旋转 / 窗口尺寸变化时重新测量并定位年份（无动画校正） */
 function reposition(){
-  const offR = measureOffsetR();
+  for (const s of slots) s.el.style.transition = 'none';
+  syncLayout();
   for (const s of slots) {
-    s.el.style.transition = 'none';
-    applyPos(s, offR);
     void s.el.offsetWidth;
     s.el.style.transition = '';
   }
